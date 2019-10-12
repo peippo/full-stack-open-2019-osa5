@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LoginForm from "./components/LoginForm";
+import AddBlogForm from "./components/AddBlogForm";
 import Blog from "./components/Blog";
 
 function App() {
@@ -48,6 +49,11 @@ function App() {
 		<>
 			{user !== null && user.name} logged in!{" "}
 			<button onClick={() => handleLogout()}>Logout</button>
+			<AddBlogForm
+				userToken={user.token}
+				blogs={blogs}
+				setBlogs={setBlogs}
+			/>
 			{blogs !== null &&
 				blogs.map(blog => {
 					return <Blog blog={blog} key={blog.id} />;
