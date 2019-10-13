@@ -6,7 +6,8 @@ const LoginForm = ({
 	setUsername,
 	password,
 	setPassword,
-	setUser
+	setUser,
+	setNotification
 }) => {
 	const handleSubmit = event => {
 		event.preventDefault();
@@ -25,6 +26,10 @@ const LoginForm = ({
 			})
 			.catch(function(error) {
 				console.log(error);
+				setNotification({
+					message: "Wrong username or password!",
+					type: "error"
+				});
 			});
 	};
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const AddBlogForm = ({ blogs, setBlogs, userToken }) => {
+const AddBlogForm = ({ blogs, setBlogs, userToken, setNotification }) => {
 	const [title, setTitle] = useState("");
 	const [author, setAuthor] = useState("");
 	const [url, setUrl] = useState("");
@@ -21,9 +21,17 @@ const AddBlogForm = ({ blogs, setBlogs, userToken }) => {
 			)
 			.then(function(response) {
 				setBlogs(blogs.concat(response.data));
+				setNotification({
+					message: `New blog ${title} by ${author} added!`,
+					type: "success"
+				});
 			})
 			.catch(function(error) {
 				console.log(error);
+				setNotification({
+					message: "Title & URL are required",
+					type: "error"
+				});
 			});
 	};
 
@@ -39,6 +47,7 @@ const AddBlogForm = ({ blogs, setBlogs, userToken }) => {
 						id="title"
 						name="title"
 						value={title}
+						required
 					/>
 				</div>
 				<div style={{ marginBottom: "0.5rem" }}>
@@ -59,6 +68,7 @@ const AddBlogForm = ({ blogs, setBlogs, userToken }) => {
 						id="url"
 						name="url"
 						value={url}
+						required
 					/>
 				</div>
 				<button>Save</button>

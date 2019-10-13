@@ -3,12 +3,20 @@ import axios from "axios";
 import LoginForm from "./components/LoginForm";
 import AddBlogForm from "./components/AddBlogForm";
 import Blog from "./components/Blog";
+import Notification from "./components/Notification";
 
 function App() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [user, setUser] = useState(null);
 	const [blogs, setBlogs] = useState(null);
+	const [notification, setNotification] = useState(null);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setNotification(null);
+		}, 5000);
+	}, [notification]);
 
 	useEffect(() => {
 		const loggedUser = window.localStorage.getItem("loggedUser");
@@ -35,24 +43,34 @@ function App() {
 
 	if (user === null) {
 		return (
-			<LoginForm
-				username={username}
-				setUsername={setUsername}
-				password={password}
-				setPassword={setPassword}
-				setUser={setUser}
-			/>
+			<>
+				{notification !== null && (
+					<Notification notification={notification} />
+				)}{" "}
+				<LoginForm
+					username={username}
+					setUsername={setUsername}
+					password={password}
+					setPassword={setPassword}
+					setUser={setUser}
+					setNotification={setNotification}
+				/>
+			</>
 		);
 	}
 
 	return (
 		<>
+			{notification !== null && (
+				<Notification notification={notification} />
+			)}
 			{user !== null && user.name} logged in!{" "}
 			<button onClick={() => handleLogout()}>Logout</button>
 			<AddBlogForm
 				userToken={user.token}
 				blogs={blogs}
 				setBlogs={setBlogs}
+				setNotification={setNotification}
 			/>
 			{blogs !== null &&
 				blogs.map(blog => {
