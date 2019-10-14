@@ -4,6 +4,7 @@ import LoginForm from "./components/LoginForm";
 import AddBlogForm from "./components/AddBlogForm";
 import Blog from "./components/Blog";
 import Notification from "./components/Notification";
+import ToggleWrapper from "./components/ToggleWrapper";
 
 function App() {
 	const [username, setUsername] = useState("");
@@ -64,14 +65,21 @@ function App() {
 			{notification !== null && (
 				<Notification notification={notification} />
 			)}
-			{user !== null && user.name} logged in!{" "}
-			<button onClick={() => handleLogout()}>Logout</button>
-			<AddBlogForm
-				userToken={user.token}
-				blogs={blogs}
-				setBlogs={setBlogs}
-				setNotification={setNotification}
-			/>
+			<div style={{ marginBottom: "1rem" }}>
+				{user !== null && user.name} logged in!{" "}
+				<button onClick={() => handleLogout()}>Logout</button>
+			</div>
+			<ToggleWrapper
+				showButtonLabel="Add new blog"
+				hideButtonLabel="Cancel"
+			>
+				<AddBlogForm
+					userToken={user.token}
+					blogs={blogs}
+					setBlogs={setBlogs}
+					setNotification={setNotification}
+				/>
+			</ToggleWrapper>
 			{blogs !== null &&
 				blogs.map(blog => {
 					return <Blog blog={blog} key={blog.id} />;
