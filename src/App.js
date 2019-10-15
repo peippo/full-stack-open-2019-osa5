@@ -37,6 +37,27 @@ function App() {
 			});
 	}, [user]);
 
+	const handleLikeClick = updatedBlog => {
+		axios
+			.put(`http://localhost:3001/api/blogs/${updatedBlog.id}`, {
+				title: updatedBlog.title,
+				author: updatedBlog.author,
+				url: updatedBlog.url,
+				user: updatedBlog.user.id,
+				likes: updatedBlog.likes + 1
+			})
+			.then(function(response) {
+				setBlogs(
+					blogs.map(blog =>
+						blog.id !== updatedBlog.id ? blog : response.data
+					)
+				);
+			})
+			.catch(function(error) {
+				console.log(error);
+			});
+	};
+
 	const handleLogout = () => {
 		window.localStorage.removeItem("loggedUser");
 		setUser(null);
@@ -82,7 +103,13 @@ function App() {
 			</ToggleWrapper>
 			{blogs !== null &&
 				blogs.map(blog => {
-					return <Blog blog={blog} key={blog.id} />;
+					return (
+						<Blog
+							blog={blog}
+							key={blog.id}
+							handleLikeClick={handleLikeClick}
+						/>
+					);
 				})}
 		</>
 	);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, handleLikeClick }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	let addedBy = null;
@@ -46,7 +46,10 @@ const Blog = ({ blog }) => {
 					<a href={blog.url}>{blog.url}</a>
 				</p>
 				<p>
-					{blog.likes} likes <button>+1 like</button>
+					{blog.likes} likes{" "}
+					<button onClick={() => handleLikeClick(blog)}>
+						+1 like
+					</button>
 				</p>
 				{addedBy}
 			</div>

@@ -25,6 +25,9 @@ const AddBlogForm = ({ blogs, setBlogs, userToken, setNotification }) => {
 					message: `New blog ${title} by ${author} added!`,
 					type: "success"
 				});
+				setTitle("");
+				setAuthor("");
+				setUrl("");
 			})
 			.catch(function(error) {
 				console.log(error);
