@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 const ToggleWrapper = ({ showButtonLabel, hideButtonLabel, children }) => {
 	const [isVisible, setIsVisible] = useState(false);
@@ -21,6 +22,12 @@ const ToggleWrapper = ({ showButtonLabel, hideButtonLabel, children }) => {
 			</>
 		);
 	}
+};
+
+ToggleWrapper.propTypes = {
+	showButtonLabel: PropTypes.string,
+	hideButtonLabel: PropTypes.string,
+	children: PropTypes.node
 };
 
 export default ToggleWrapper;

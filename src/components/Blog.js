@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 const Blog = ({ user, blog, handleLikeClick, handleDeleteClick }) => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -63,6 +64,13 @@ const Blog = ({ user, blog, handleLikeClick, handleDeleteClick }) => {
 			</div>
 		);
 	}
+};
+
+Blog.propTypes = {
+	user: PropTypes.object,
+	blog: PropTypes.object,
+	handleLikeClick: PropTypes.func,
+	handleDeleteClick: PropTypes.func
 };
 
 export default Blog;

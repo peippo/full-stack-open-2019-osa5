@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 const LoginForm = ({
 	username,
@@ -61,6 +62,15 @@ const LoginForm = ({
 			</form>
 		</>
 	);
+};
+
+LoginForm.propTypes = {
+	username: PropTypes.string,
+	setUsername: PropTypes.func,
+	password: PropTypes.string,
+	setPassword: PropTypes.func,
+	setUser: PropTypes.func,
+	setNotification: PropTypes.func
 };
 
 export default LoginForm;

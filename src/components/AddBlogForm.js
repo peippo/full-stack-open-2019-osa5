@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import PropTypes from "prop-types";
 
-const AddBlogForm = ({ blogs, setBlogs, userToken, setNotification }) => {
+const AddBlogForm = ({ blogs, userToken, setBlogs, setNotification }) => {
 	const [title, setTitle] = useState("");
 	const [author, setAuthor] = useState("");
 	const [url, setUrl] = useState("");
@@ -78,6 +79,13 @@ const AddBlogForm = ({ blogs, setBlogs, userToken, setNotification }) => {
 			</form>
 		</>
 	);
+};
+
+AddBlogForm.propTypes = {
+	blogs: PropTypes.array,
+	userToken: PropTypes.string,
+	setBlogs: PropTypes.func,
+	setNotification: PropTypes.func
 };
 
 export default AddBlogForm;
