@@ -102,15 +102,19 @@ function App() {
 				/>
 			</ToggleWrapper>
 			{blogs !== null &&
-				blogs.map(blog => {
-					return (
-						<Blog
-							blog={blog}
-							key={blog.id}
-							handleLikeClick={handleLikeClick}
-						/>
-					);
-				})}
+				blogs
+					.sort(function(a, b) {
+						return b.likes - a.likes;
+					})
+					.map(blog => {
+						return (
+							<Blog
+								blog={blog}
+								key={blog.id}
+								handleLikeClick={handleLikeClick}
+							/>
+						);
+					})}
 		</>
 	);
 }
