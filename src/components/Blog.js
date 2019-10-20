@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 
-const Blog = ({ blog, handleLikeClick }) => {
+const Blog = ({ user, blog, handleLikeClick, handleDeleteClick }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	let addedBy = null;
 	if (blog.user) {
 		addedBy = <p>Added by {blog.user.name}</p>;
+	}
+
+	let deleteButton = null;
+	if (blog.user.username === user.username) {
+		deleteButton = (
+			<button onClick={() => handleDeleteClick(blog)}>Delete</button>
+		);
 	}
 
 	if (!isOpen) {
@@ -52,6 +59,7 @@ const Blog = ({ blog, handleLikeClick }) => {
 					</button>
 				</p>
 				{addedBy}
+				{deleteButton}
 			</div>
 		);
 	}

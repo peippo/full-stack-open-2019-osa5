@@ -58,6 +58,31 @@ function App() {
 			});
 	};
 
+	const handleDeleteClick = deletedBlog => {
+		if (
+			window.confirm(
+				`Remove the blog ${deletedBlog.title} by ${deletedBlog.author}?`
+			)
+		) {
+			axios
+				.delete(`http://localhost:3001/api/blogs/${deletedBlog.id}`, {
+					headers: { Authorization: `Bearer ${user.token}` }
+				})
+				.then(function(response) {
+					setBlogs(
+						blogs.filter(person => person.id !== deletedBlog.id)
+					);
+					setNotification({
+						message: `Blog ${deletedBlog.title} by ${deletedBlog.author} deleted!`,
+						type: "success"
+					});
+				})
+				.catch(function(error) {
+					console.log(error);
+				});
+		}
+	};
+
 	const handleLogout = () => {
 		window.localStorage.removeItem("loggedUser");
 		setUser(null);
@@ -109,9 +134,11 @@ function App() {
 					.map(blog => {
 						return (
 							<Blog
+								user={user}
 								blog={blog}
 								key={blog.id}
 								handleLikeClick={handleLikeClick}
+								handleDeleteClick={handleDeleteClick}
 							/>
 						);
 					})}
