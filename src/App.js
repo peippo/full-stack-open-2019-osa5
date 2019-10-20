@@ -68,7 +68,7 @@ function App() {
 				.delete(`http://localhost:3001/api/blogs/${deletedBlog.id}`, {
 					headers: { Authorization: `Bearer ${user.token}` }
 				})
-				.then(function(response) {
+				.then(function() {
 					setBlogs(
 						blogs.filter(person => person.id !== deletedBlog.id)
 					);
