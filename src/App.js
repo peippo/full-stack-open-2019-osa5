@@ -5,6 +5,7 @@ import AddBlogForm from "./components/AddBlogForm";
 import Blog from "./components/Blog";
 import Notification from "./components/Notification";
 import ToggleWrapper from "./components/ToggleWrapper";
+import SimpleBlog from "./components/SimpleBlog";
 
 function App() {
 	const [username, setUsername] = useState("");
@@ -133,12 +134,17 @@ function App() {
 					})
 					.map(blog => {
 						return (
-							<Blog
-								user={user}
+							// <Blog
+							// 	user={user}
+							// 	blog={blog}
+							// 	key={blog.id}
+							// 	handleLikeClick={handleLikeClick}
+							// 	handleDeleteClick={handleDeleteClick}
+							// />
+							<SimpleBlog
 								blog={blog}
 								key={blog.id}
-								handleLikeClick={handleLikeClick}
-								handleDeleteClick={handleDeleteClick}
+								onClick={handleLikeClick}
 							/>
 						);
 					})}
