@@ -36,7 +36,7 @@ const LoginForm = ({
 
 	return (
 		<>
-			<h2>Log in to application</h2>
+			<h2 className="login-heading">Log in to application</h2>
 			<form onSubmit={handleSubmit}>
 				<div style={{ marginBottom: "0.5rem" }}>
 					<label htmlFor="username">Username:</label>

@@ -5,6 +5,7 @@ import AddBlogForm from "./components/AddBlogForm";
 import Blog from "./components/Blog";
 import Notification from "./components/Notification";
 import ToggleWrapper from "./components/ToggleWrapper";
+import blogService from "./services/blogs";
 
 function App() {
 	const [username, setUsername] = useState("");
@@ -21,20 +22,13 @@ function App() {
 
 	useEffect(() => {
 		const loggedUser = window.localStorage.getItem("loggedUser");
-		if (loggedUser !== null) {
+		if (loggedUser !== null && loggedUser !== undefined) {
 			setUser(JSON.parse(loggedUser));
 		}
 	}, []);
 
 	useEffect(() => {
-		axios
-			.get("http://localhost:3001/api/blogs")
-			.then(function(response) {
-				setBlogs(response.data);
-			})
-			.catch(function(error) {
-				console.log(error);
-			});
+		blogService.getAll().then(blogs => setBlogs(blogs));
 	}, [user]);
 
 	const handleLikeClick = updatedBlog => {
@@ -107,7 +101,7 @@ function App() {
 	}
 
 	return (
-		<>
+		<main>
 			{notification !== null && (
 				<Notification notification={notification} />
 			)}
@@ -142,7 +136,7 @@ function App() {
 							/>
 						);
 					})}
-		</>
+		</main>
 	);
 }
 
