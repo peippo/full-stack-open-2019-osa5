@@ -8,8 +8,6 @@ import ToggleWrapper from "./components/ToggleWrapper";
 import blogService from "./services/blogs";
 
 function App() {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
 	const [user, setUser] = useState(null);
 	const [blogs, setBlogs] = useState(null);
 	const [notification, setNotification] = useState(null);
@@ -89,10 +87,6 @@ function App() {
 					<Notification notification={notification} />
 				)}{" "}
 				<LoginForm
-					username={username}
-					setUsername={setUsername}
-					password={password}
-					setPassword={setPassword}
 					setUser={setUser}
 					setNotification={setNotification}
 				/>

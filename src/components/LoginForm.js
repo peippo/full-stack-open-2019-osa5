@@ -1,22 +1,21 @@
 import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import { useField } from "../hooks";
 
-const LoginForm = ({
-	username,
-	setUsername,
-	password,
-	setPassword,
-	setUser,
-	setNotification
-}) => {
+const LoginForm = ({ setUser, setNotification }) => {
+	const username = useField("text");
+	const password = useField("password");
+	const { resetField: resetUsernameField, ...usernameInput } = username;
+	const { resetField: resetPasswordField, ...passwordInput } = password;
+
 	const handleSubmit = event => {
 		event.preventDefault();
 
 		axios
 			.post("http://localhost:3001/api/login", {
-				username,
-				password
+				username: username.value,
+				password: password.value
 			})
 			.then(function(response) {
 				setUser(response.data);
@@ -27,6 +26,8 @@ const LoginForm = ({
 			})
 			.catch(function(error) {
 				console.log(error);
+				resetUsernameField();
+				resetPasswordField();
 				setNotification({
 					message: "Wrong username or password!",
 					type: "error"
@@ -40,23 +41,11 @@ const LoginForm = ({
 			<form onSubmit={handleSubmit}>
 				<div style={{ marginBottom: "0.5rem" }}>
 					<label htmlFor="username">Username:</label>
-					<input
-						onChange={({ target }) => setUsername(target.value)}
-						type="text"
-						id="username"
-						name="username"
-						value={username}
-					/>
+					<input {...usernameInput} />
 				</div>
 				<div style={{ marginBottom: "0.5rem" }}>
 					<label htmlFor="password">Password:</label>
-					<input
-						onChange={({ target }) => setPassword(target.value)}
-						type="password"
-						id="password"
-						name="password"
-						value={password}
-					/>
+					<input {...passwordInput} />
 				</div>
 				<button>Login</button>
 			</form>
